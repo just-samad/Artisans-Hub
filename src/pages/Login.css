@@ -1,0 +1,131 @@
+.login-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background: radial-gradient(ellipse at center, #f2f6ff 0%, #dbe9ff 100%);
+  padding: 40px 16px;
+}
+
+.login-box {
+  background: #fff;
+  padding: 40px 30px;
+  border-radius: 20px;
+  box-shadow: 0 12px 35px rgba(0, 0, 0, 0.08);
+  max-width: 400px;
+  width: 100%;
+  animation: fadeIn 0.7s ease;
+}
+
+.login-box h2 {
+  font-size: 2rem;
+  margin-bottom: 10px;
+  color: #003366;
+}
+
+.subtitle {
+  font-size: 0.95rem;
+  margin-bottom: 25px;
+  color: #555;
+}
+
+.input-group {
+  margin-bottom: 20px;
+}
+
+.input-group label {
+  display: block;
+  margin-bottom: 6px;
+  font-weight: 600;
+  color: #222;
+}
+
+.input-group input {
+  width: 100%;
+  padding: 14px 16px;
+  border-radius: 12px;
+  border: 1.5px solid #ccd6e0;
+  font-size: 0.95rem;
+  outline: none;
+  transition: border 0.3s ease;
+}
+
+.input-group input:focus {
+  border-color: #0066ff;
+}
+
+.password-wrapper {
+  position: relative;
+}
+
+.password-wrapper input {
+  padding-right: 42px;
+}
+
+.toggle-password {
+  position: absolute;
+  top: 50%;
+  right: 14px;
+  transform: translateY(-50%);
+  cursor: pointer;
+  color: #777;
+  font-size: 1rem;
+}
+
+.forgot-remember {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 24px;
+}
+
+.forgot-btn {
+  background: none;
+  border: none;
+  color: #0055cc;
+  font-size: 0.9rem;
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+.btn-primary.full {
+  width: 100%;
+  padding: 14px;
+  border-radius: 14px;
+  background: #0055cc;
+  color: white;
+  border: none;
+  font-weight: bold;
+  font-size: 1rem;
+  transition: background 0.3s ease, transform 0.2s ease;
+  cursor: pointer;
+}
+
+.btn-primary.full:hover {
+  background: #003f99;
+  transform: scale(1.03);
+}
+
+.register-link {
+  text-align: center;
+  margin-top: 20px;
+  font-size: 0.92rem;
+  color: #333;
+}
+
+.register-link span {
+  color: #0055cc;
+  font-weight: bold;
+  cursor: pointer;
+  margin-left: 5px;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

@@ -1,0 +1,54 @@
+.terms-wrapper {
+  padding: 60px 6vw;
+  max-width: 960px;
+  margin: 0 auto;
+  background: #ffffff;
+  color: #003366;
+  animation: fadeIn 0.3s ease;
+  line-height: 1.7;
+}
+
+.terms-wrapper h1 {
+  font-size: 2.5rem;
+  color: #003366;
+  margin-bottom: 10px;
+}
+
+.updated {
+  font-size: 0.95rem;
+  color: #666;
+  margin-bottom: 30px;
+}
+
+section {
+  margin-bottom: 40px;
+}
+
+section h2 {
+  color: #0066ff;
+  font-size: 1.4rem;
+  margin-bottom: 12px;
+}
+
+section p {
+  font-size: 1rem;
+  color: #333;
+}
+
+.bottom-note {
+  margin-top: 40px;
+  font-style: italic;
+  color: #444;
+  font-size: 0.95rem;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(15px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
