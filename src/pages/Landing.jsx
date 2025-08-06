@@ -1,13 +1,33 @@
-import React, { useEffect, useState } from 'react';
+
 import AOS from 'aos';
 import 'aos/dist/aos.css';
 import '../pages/Landing.css';
 import heroImg from '../assets/artisan.jpg';
+import { FaMapMarkerAlt, FaSearch, FaUserTie } from 'react-icons/fa';
+import { useNavigate } from 'react-router-dom';
+import axios from 'axios'
+import React, { useEffect, useState } from 'react';
 
 const ROTATING_WORDS = ['Plumbers', 'Electricians', 'Carpenters', 'Painters', 'Tailors'];
 
 const LandingPage = () => {
+    const [artisans, setArtisans] = useState([]);
+    const navigate = useNavigate();
+      const [search, setSearch] = useState('');
+      const [region, setRegion] = useState('');
+      const [category, setCategory] = useState('');
   const [currentIndex, setCurrentIndex] = useState(0);
+   useEffect(() => {
+      const fetchArtisans = async () => {
+        try {
+          const res = await axios.get('http://localhost:4000/artisan');
+          setArtisans(res.data);
+        } catch (err) {
+          console.error('Failed to fetch artisans:', err);
+        }
+      };
+      fetchArtisans();
+    }, []);
 
   useEffect(() => {
     AOS.init({ duration: 1000, once: true });
@@ -20,7 +40,41 @@ const LandingPage = () => {
   const handleRedirect = (path) => {
     window.location.href = path;
   };
+    // const [artisans, setArtisans] = useState([]);
+    // const navigate = useNavigate();
+    //   const [search, setSearch] = useState('');
+    //   const [region, setRegion] = useState('');
+    //   const [category, setCategory] = useState('');
+  // const [currentIndex, setCurrentIndex] = useState(0);
+  //  useEffect(() => {
+  //     const fetchArtisans = async () => {
+  //       try {
+  //         const res = await axios.get('http://localhost:4000/artisan');
+  //         setArtisans(res.data);
+  //       } catch (err) {
+  //         console.error('Failed to fetch artisans:', err);
+  //       }
+  //     };
+  //     fetchArtisans();
+  //   }, []);
 
+  // useEffect(() => {
+  //   AOS.init({ duration: 1000, once: true });
+  //   const interval = setInterval(() => {
+  //     setCurrentIndex((prev) => (prev + 1) % ROTATING_WORDS.length);
+  //   }, 2000);
+  //   return () => clearInterval(interval);
+  // }, []);
+
+  const filteredArtisans = artisans.filter(artisan =>
+    artisan.fullName.toLowerCase().includes(search.toLowerCase()) &&
+    (region ? artisan.location === region : true) &&
+    (category ? artisan.skill.includes(category) : true)
+  );
+
+  const handleCardClick = (id) => {
+    navigate(`/artisan/${id}`);
+  };
   return (
     <div className="landing-container">
       {/* Navbar */}
@@ -76,14 +130,21 @@ const LandingPage = () => {
       <section className="section featured-artisans" id="featured" data-aos="fade-up">
         <h2>Featured Artisans</h2>
         <div className="card-container">
-          {[1, 2, 3].map((id) => (
-            <div key={id} className="card" onClick={() => handleRedirect('/login')} data-aos="zoom-in" data-aos-delay={id * 200}>
-              <img src={`https://randomuser.me/api/portraits/men/${id + 30}.jpg`} alt="artisan" className="card-img" />
-              <h3>John Doe {id}</h3>
-              <p>Electrician • Lagos</p>
-              <span className="rating">⭐⭐⭐⭐☆</span>
-            </div>
-          ))}
+          {filteredArtisans
+            .filter(artisan => artisan.rate >= 4 && artisan.rate <= 5)
+            .slice(0, 5)
+            .map((artisan) => (
+              <div
+                className="featured-card"
+                key={artisan._id}
+                onClick={() => handleCardClick(artisan._id)}>
+                <img src={`http://localhost:4000/${artisan.profileImage}`} alt={artisan.fullName} className='card-img' />
+                <h3>{artisan.fullName}</h3>
+                <p><FaUserTie /> {artisan.skill.join(', ')}</p>
+                <p><FaMapMarkerAlt /> {artisan.location}</p>
+                <span className="rating">⭐ {artisan.rate || 'N/A'}</span>
+              </div>
+            ))}
         </div>
       </section>
 

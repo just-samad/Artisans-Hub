@@ -5,10 +5,13 @@ import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import AOS from 'aos';
 import 'aos/dist/aos.css';
 import { useEffect } from 'react';
+import axios from 'axios';
 
 const Login = () => {
-  const [form, setForm] = useState({ contact: '', password: '' });
+  const [form, setForm] = useState({ email: '', password: '' });
   const [showPassword, setShowPassword] = useState(false);
+   const [error, setError] = useState('');
+     const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -24,10 +27,39 @@ const Login = () => {
     setShowPassword((prev) => !prev);
   };
 
-  const handleLogin = (e) => {
+ const handleLogin = async (e) => {
     e.preventDefault();
-    console.log('Logging in:', form);
-    // Add login logic here
+    setLoading(true);
+    setError('');
+
+    try {
+      const response = await axios.post(
+        'http://localhost:4000/login', // Update URL if needed
+        {
+          email: form.email,
+          password: form.password,
+        },
+        {
+          withCredentials: true, // if you're using cookies/session
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        }
+      );
+
+ if (response.status === 200) {
+  const token = response.data.token;
+  localStorage.setItem('token', token); // ✅ store it
+  console.log(token);
+  navigate('/home');
+}else {
+        setError('Login failed. Please try again.');
+      }
+    } catch (err) {
+      setError(err.response?.data?.message || 'Invalid credentials');
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -38,12 +70,12 @@ const Login = () => {
 
         <form onSubmit={handleLogin}>
           <div className="input-group">
-            <label>Email or Phone</label>
+            <label>Email </label>
             <input
-              type="text"
-              name="contact"
-              placeholder="example@gmail.com or 08123456789"
-              value={form.contact}
+                type="email"
+              name="email"
+              placeholder="example@gmail.com"
+              value={form.email}
               onChange={handleChange}
               required
             />

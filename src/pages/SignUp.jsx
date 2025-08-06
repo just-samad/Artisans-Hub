@@ -10,18 +10,13 @@ const Signup = () => {
   const navigate = useNavigate();
   const [form, setForm] = useState({
     fullName: '',
-    dob: '',
-    contact: '',
+    phoneNumber: '',
     email: '',
-    address: '',
-    jobSkill: '',
-    idNumber: '',
     password: '',
-    confirmPassword: '',
   });
 
   const [showPassword, setShowPassword] = useState(false);
-  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+  // const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
 
@@ -34,28 +29,23 @@ const Signup = () => {
   };
 
   const togglePassword = () => setShowPassword(!showPassword);
-  const toggleConfirmPassword = () => setShowConfirmPassword(!showConfirmPassword);
+  // const toggleConfirmPassword = () => setShowConfirmPassword(!showConfirmPassword);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     // Basic validation
-    if (form.password !== form.confirmPassword) {
-      setError("Passwords do not match");
-      return;
-    }
+  
 
     setLoading(true);
     setError('');
 
     try {
-      const response = await axios.post('https://hawauai-backend.onrender.com/register', {
-        firstname: form.fullName.split(' ')[0] || '',
-        lastname: form.fullName.split(' ')[1] || '',
+      const response = await axios.post('http://localhost:4000/register', {
+        fullName: form.fullName,
+        phoneNumber: form.phoneNumber,
         email: form.email,
         password: form.password,
-        industry: form.jobSkill,
-        experience: form.address, // You may adjust this depending on your backend expectation
       }, {
         withCredentials: true,
         headers: {
@@ -89,14 +79,14 @@ const Signup = () => {
             <input type="text" name="fullName" value={form.fullName} onChange={handleChange} required />
           </div>
 
-          <div className="input-group">
+          {/* <div className="input-group">
             <label>Date of Birth</label>
             <input type="date" name="dob" value={form.dob} onChange={handleChange} required />
-          </div>
+          </div> */}
 
           <div className="input-group">
             <label>Contact Number</label>
-            <input type="text" name="contact" value={form.contact} onChange={handleChange} required />
+            <input type="text" name="phoneNumber" value={form.phoneNumber} onChange={handleChange} required />
           </div>
 
           <div className="input-group">
@@ -104,20 +94,20 @@ const Signup = () => {
             <input type="email" name="email" value={form.email} onChange={handleChange} required />
           </div>
 
-          <div className="input-group">
+          {/* <div className="input-group">
             <label>Address</label>
             <input type="text" name="address" value={form.address} onChange={handleChange} required />
-          </div>
+          </div> */}
 
-          <div className="input-group">
-            <label>Job Skill</label>
+          {/* <div className="input-group">
+            <label>Occupation</label>
             <input type="text" name="jobSkill" value={form.jobSkill} onChange={handleChange} required />
-          </div>
+          </div> */}
 
-          <div className="input-group">
+          {/* <div className="input-group">
             <label>Identification Number</label>
             <input type="text" name="idNumber" value={form.idNumber} onChange={handleChange} required />
-          </div>
+          </div> */}
 
           <div className="input-group">
             <label>Password</label>
@@ -135,7 +125,7 @@ const Signup = () => {
             </div>
           </div>
 
-          <div className="input-group">
+          {/* <div className="input-group">
             <label>Confirm Password</label>
             <div className="password-wrapper">
               <input
@@ -149,7 +139,7 @@ const Signup = () => {
                 {showConfirmPassword ? <FaEyeSlash /> : <FaEye />}
               </span>
             </div>
-          </div>
+          </div> */}
 
           {error && <p style={{ color: 'red', fontSize: '0.9rem', marginBottom: '10px' }}>{error}</p>}
 

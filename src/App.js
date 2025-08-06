@@ -10,6 +10,7 @@ import ProfilePage from './pages/Profile';
 import FAQPage from './pages/Faq';
 import AboutPage from './pages/About';
 import TermsPage from './pages/Terms';
+import UserProfile from './pages/userprofile';
 
 // Wrapper to conditionally show navbar
 const LayoutWithNavbar = ({ children }) => {
@@ -38,6 +39,7 @@ function App() {
           <Route path="/faq" element={<FAQPage />} />
           <Route path="/about" element={<AboutPage />} />
           <Route path="/terms" element={<TermsPage />} />
+          <Route path="/user-profile" element={<UserProfile />} />
           {/* Add more routes as needed */}
         </Routes>
       </LayoutWithNavbar>

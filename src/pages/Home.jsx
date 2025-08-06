@@ -1,42 +1,32 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './Home.css';
 import { FaMapMarkerAlt, FaSearch, FaUserTie } from 'react-icons/fa';
 import { useNavigate } from 'react-router-dom';
-
-// Dummy artisan data generator
-const generateDummyArtisans = () => {
-  const categories = ['Plumber', 'Electrician', 'Tailor', 'Mechanic', 'Painter'];
-  const regions = ['Lagos', 'Abuja', 'Kano', 'Enugu', 'Ibadan'];
-  const artisans = [];
-
-  for (let i = 1; i <= 50; i++) {
-    const randomCategory = categories[Math.floor(Math.random() * categories.length)];
-    const randomRegion = regions[Math.floor(Math.random() * regions.length)];
-    artisans.push({
-      id: i,
-      name: `Artisan ${i}`,
-      category: randomCategory,
-      region: randomRegion,
-      rating: (3 + Math.random() * 2).toFixed(1),
-      image: `https://i.pravatar.cc/150?img=${i % 70}`,
-    });
-  }
-
-  return artisans;
-};
+import axios from 'axios';
 
 const HomePage = () => {
   const [search, setSearch] = useState('');
   const [region, setRegion] = useState('');
   const [category, setCategory] = useState('');
+  const [artisans, setArtisans] = useState([]);
   const navigate = useNavigate();
 
-  const allArtisans = generateDummyArtisans();
+  useEffect(() => {
+    const fetchArtisans = async () => {
+      try {
+        const res = await axios.get('http://localhost:4000/artisan');
+        setArtisans(res.data);
+      } catch (err) {
+        console.error('Failed to fetch artisans:', err);
+      }
+    };
+    fetchArtisans();
+  }, []);
 
-  const filteredArtisans = allArtisans.filter(artisan =>
-    artisan.name.toLowerCase().includes(search.toLowerCase()) &&
-    (region ? artisan.region === region : true) &&
-    (category ? artisan.category === category : true)
+  const filteredArtisans = artisans.filter(artisan =>
+    artisan.fullName.toLowerCase().includes(search.toLowerCase()) &&
+    (region ? artisan.location === region : true) &&
+    (category ? artisan.skill.includes(category) : true)
   );
 
   const handleCardClick = (id) => {
@@ -77,25 +67,27 @@ const HomePage = () => {
           <option value="Painter">Painter</option>
         </select>
       </div>
-
-      <div className="featured-section">
-        <h2>🔥 Featured Artisans</h2>
-        <div className="featured-cards">
-          {filteredArtisans.slice(0, 5).map((artisan) => (
-            <div
-              className="featured-card"
-              key={artisan.id}
-              onClick={() => handleCardClick(artisan.id)}
-            >
-              <img src={artisan.image} alt={artisan.name} />
-              <h3>{artisan.name}</h3>
-              <p><FaUserTie /> {artisan.category}</p>
-              <p><FaMapMarkerAlt /> {artisan.region}</p>
-              <span className="rating">⭐ {artisan.rating}</span>
-            </div>
-          ))}
+<div className="featured-section">
+  <h2>🔥 Featured Artisans</h2>
+  <div className="featured-cards">
+    {filteredArtisans
+      .filter(artisan => artisan.rate >= 4 && artisan.rate <= 5)
+      .slice(0, 5)
+      .map((artisan) => (
+        <div
+          className="featured-card"
+          key={artisan._id}
+          onClick={() => handleCardClick(artisan._id)}>
+          <img src={`http://localhost:4000/${artisan.profileImage}`} alt={artisan.fullName} />
+          <h3>{artisan.fullName}</h3>
+          <p><FaUserTie /> {artisan.skill.join(', ')}</p>
+          <p><FaMapMarkerAlt /> {artisan.location}</p>
+          <span className="rating">⭐ {artisan.rate || 'N/A'}</span>
         </div>
-      </div>
+      ))}
+  </div>
+</div>
+
 
       <div className="all-artisans-section">
         <h2>🔍 All Artisans</h2>
@@ -103,13 +95,13 @@ const HomePage = () => {
           {filteredArtisans.map((artisan) => (
             <div
               className="artisan-card"
-              key={artisan.id}
-              onClick={() => handleCardClick(artisan.id)}
+              key={artisan._id}
+              onClick={() => handleCardClick(artisan._id)}
             >
-              <img src={artisan.image} alt={artisan.name} />
-              <h4>{artisan.name}</h4>
-              <p>{artisan.category} - {artisan.region}</p>
-              <p className="small">⭐ {artisan.rating}</p>
+              <img src={`http://localhost:4000/${artisan.profileImage}`} alt={artisan.fullName} />
+              <h4>{artisan.fullName}</h4>
+              <p>{artisan.skill.join(', ')} - {artisan.location}</p>
+              <p className="small">⭐ {artisan.rate || 'N/A'}</p>
             </div>
           ))}
         </div>
@@ -119,3 +111,4 @@ const HomePage = () => {
 };
 
 export default HomePage;
+

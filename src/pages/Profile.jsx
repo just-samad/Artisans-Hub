@@ -6,11 +6,16 @@ const ProfilePage = () => {
   const [formData, setFormData] = useState({
     fullName: '',
     dob: '',
-    contact: '',
+    phoneNumber: '',
     email: '',
     address: '',
     skill: '',
-    idNumber: '',
+    bvn: '',
+    gender: '',
+    location: '',
+    bio: '',
+    experience: '',
+    rate: '',
     profileImage: null,
     workImages: [],
   });
@@ -26,10 +31,44 @@ const ProfilePage = () => {
     }
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // submit to backend later
-    console.log(formData);
+
+    const form = new FormData();
+    Object.keys(formData).forEach((key) => {
+      if (key === 'workImages') {
+        formData.workImages.forEach((file) => {
+          form.append('workImages', file);
+        });
+      } else if (key === 'profileImage' && formData.profileImage) {
+        form.append('profileImage', formData.profileImage);
+      } else if (key !== 'workImages' && key !== 'profileImage') {
+        form.append(key, formData[key]);
+      }
+    });
+
+    try {
+      const token = localStorage.getItem('token');
+
+      const response = await fetch('http://localhost:4000/profile/update', {
+        method: 'PUT',
+        headers: {
+          authorization: `Bearer ${token}`,
+        },
+        body: form,
+      });
+
+      const result = await response.json();
+      if (response.ok) {
+        alert('Profile updated successfully!');
+        console.log(result);
+      } else {
+        alert(result.message || 'Something went wrong.');
+      }
+    } catch (err) {
+      console.error('Error updating profile:', err);
+      alert('Failed to update profile');
+    }
   };
 
   return (
@@ -44,7 +83,7 @@ const ProfilePage = () => {
         <input type="date" name="dob" onChange={handleChange} required />
 
         <label>Contact Number</label>
-        <input type="tel" name="contact" onChange={handleChange} required />
+        <input type="tel" name="phoneNumber" onChange={handleChange} required />
 
         <label>Email</label>
         <input type="email" name="email" onChange={handleChange} required />
@@ -52,19 +91,30 @@ const ProfilePage = () => {
         <label>Address</label>
         <input type="text" name="address" onChange={handleChange} required />
 
-        <label>Skill</label>
-        <select name="skill" onChange={handleChange} required>
-          <option value="">Select Skill</option>
-          <option value="Plumber">Plumber</option>
-          <option value="Electrician">Electrician</option>
-          <option value="Carpenter">Carpenter</option>
-          <option value="Mechanic">Mechanic</option>
-          <option value="Painter">Painter</option>
-          <option value="Tailor">Tailor</option>
+        <label>Skills</label>
+        <input type="text" name="skill" onChange={handleChange} required />
+
+        <label>Gender</label>
+        <select name="gender" onChange={handleChange} required>
+          <option value="">Select Gender</option>
+          <option value="male">Male</option>
+          <option value="female">Female</option>
         </select>
 
-        <label>Identification Number</label>
-        <input type="text" name="idNumber" onChange={handleChange} required />
+        <label>Location</label>
+        <input type="text" name="location" onChange={handleChange} required />
+
+        <label>Bio</label>
+        <textarea name="bio" onChange={handleChange} required />
+
+        <label>Experience</label>
+        <input type="text" name="experience" onChange={handleChange} required />
+
+        <label>Rate</label>
+        <input type="text" name="rate" onChange={handleChange} required />
+
+        <label>Identification Number (BVN)</label>
+        <input type="text" name="bvn" onChange={handleChange} required />
 
         <label>Profile Image</label>
         <input type="file" name="profileImage" accept="image/*" onChange={handleChange} />
@@ -81,3 +131,4 @@ const ProfilePage = () => {
 };
 
 export default ProfilePage;
+

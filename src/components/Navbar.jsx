@@ -14,9 +14,10 @@ const Navbar = () => {
 
   const handleLogout = () => {
     // TODO: Replace with actual auth logic
-    console.log("Logging out...");
-    navigate('/');
+    localStorage.removeItem('token'); 
+  window.location.href = '/login'; 
   };
+
 
   return (
     <nav className="navbar">
@@ -28,7 +29,7 @@ const Navbar = () => {
 
       <ul className={`nav-links ${menuOpen ? 'open' : ''}`}>
         <li><NavLink to="/home" onClick={() => setMenuOpen(false)}>Home</NavLink></li>
-        <li><NavLink to="/profile" onClick={() => setMenuOpen(false)}>Profile</NavLink></li>
+        <li><NavLink to="/user-profile" onClick={() => setMenuOpen(false)}>Profile</NavLink></li>
         <li><NavLink to="/faq" onClick={() => setMenuOpen(false)}>FAQ</NavLink></li>
         <li><NavLink to="/about" onClick={() => setMenuOpen(false)}>About</NavLink></li>
         <li><NavLink to="/terms" onClick={() => setMenuOpen(false)}>Terms & Services</NavLink></li>
