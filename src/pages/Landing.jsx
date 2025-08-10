@@ -20,7 +20,7 @@ const LandingPage = () => {
    useEffect(() => {
       const fetchArtisans = async () => {
         try {
-          const res = await axios.get('http://localhost:4000/artisan');
+          const res = await axios.get('https://artisan-hub-e5io.onrender.com/artisan');
           setArtisans(res.data);
         } catch (err) {
           console.error('Failed to fetch artisans:', err);
@@ -138,7 +138,7 @@ const LandingPage = () => {
                 className="featured-card"
                 key={artisan._id}
                 onClick={() => handleCardClick(artisan._id)}>
-                <img src={`http://localhost:4000/${artisan.profileImage}`} alt={artisan.fullName} className='card-img' />
+                <img src={`https://artisan-hub-e5io.onrender.com/${artisan.profileImage}`} alt={artisan.fullName} className='card-img' />
                 <h3>{artisan.fullName}</h3>
                 <p><FaUserTie /> {artisan.skill.join(', ')}</p>
                 <p><FaMapMarkerAlt /> {artisan.location}</p>

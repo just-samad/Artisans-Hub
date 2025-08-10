@@ -41,7 +41,7 @@ const ArtisanDetails = () => {
     useEffect(() => {
     const fetchArtisan = async () => {
       try {
-        const res = await axios.get(`http://localhost:4000/artisan/${id}`);
+        const res = await axios.get(`https://artisan-hub-e5io.onrender.com/${id}`);
         setArtisan(res.data.artisan);
         setComments(res.data.comments);
         console.log('res.data', res.data.artisans);
@@ -59,7 +59,7 @@ const ArtisanDetails = () => {
     if (!username || !userComment) return;
 
     try {
-      const res = await axios.post(`http://localhost:4000/artisan/${id}/comment`, {
+      const res = await axios.post(`https://artisan-hub-e5io.onrender.com/${id}/comment`, {
         user: username,
         comment: userComment,
         rating: userRating,
@@ -79,7 +79,7 @@ const ArtisanDetails = () => {
     <div className="artisan-details-wrapper">
       <div className="artisan-details-container">
         <div className="artisan-card">
-          <img src={`http://localhost:4000/${artisan.profileImage}`}  alt={artisan.name} className="artisan-img" />
+          <img src={`https://artisan-hub-e5io.onrender.com/${artisan.profileImage}`}  alt={artisan.name} className="artisan-img" />
           <h2>{artisan.fullName}</h2>
           <p className="artisan-skill"><FaWrench /> {artisan.skill}</p>
           <div className="artisan-info">
@@ -103,7 +103,7 @@ const ArtisanDetails = () => {
              {artisan.worksImage?.map((img, i) => (
               <img
                 key={i}
-                src={`http://localhost:4000/${img}`} 
+                src={`https://artisan-hub-e5io.onrender.com/${img}`} 
                 alt={`Work ${i + 1}`}
                 className='work-image'
               />

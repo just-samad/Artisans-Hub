@@ -19,7 +19,7 @@ const handleDelete = async () => {
 
   try {
     const token = localStorage.getItem('token'); // or wherever you store your token
-    const response = await axios.delete('http://localhost:4000/profile/delete', {
+    const response = await axios.delete('https://artisan-hub-e5io.onrender.com/profile/delete', {
       headers: {
         Authorization: `Bearer ${token}`,
       },
@@ -37,7 +37,7 @@ useEffect(() => {
   const fetchProfile = async () => {
     try {
       const token = localStorage.getItem('token');
-      const res = await axios.get('http://localhost:4000/profile/me', {
+      const res = await axios.get('https://artisan-hub-e5io.onrender.com/profile/me', {
         headers: { Authorization: `Bearer ${token}` },
       });
       setUser(res.data);
@@ -60,7 +60,7 @@ useEffect(() => {
                <div className="profile-card">
         <div className="profile-header">
           <img
-            src={`http://localhost:4000/${user.profileImage}`} 
+            src={`https://artisan-hub-e5io.onrender.com/${user.profileImage}`} 
             alt="Profile"
             className="profile-img"
           />
@@ -88,7 +88,7 @@ useEffect(() => {
              {user.worksImage?.map((img, i) => (
               <img
                 key={i}
-                src={`http://localhost:4000/${img}`} 
+                src={`https://artisan-hub-e5io.onrender.com/${img}`} 
                 alt={`Work ${i + 1}`}
               />
             ))}

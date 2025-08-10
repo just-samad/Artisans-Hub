@@ -50,7 +50,7 @@ const ProfilePage = () => {
     try {
       const token = localStorage.getItem('token');
 
-      const response = await fetch('http://localhost:4000/profile/update', {
+      const response = await fetch('https://artisan-hub-e5io.onrender.com/profile/update', {
         method: 'PUT',
         headers: {
           authorization: `Bearer ${token}`,

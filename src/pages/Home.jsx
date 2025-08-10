@@ -14,7 +14,7 @@ const HomePage = () => {
   useEffect(() => {
     const fetchArtisans = async () => {
       try {
-        const res = await axios.get('http://localhost:4000/artisan');
+        const res = await axios.get('https://artisan-hub-e5io.onrender.com/artisan');
         setArtisans(res.data);
       } catch (err) {
         console.error('Failed to fetch artisans:', err);
@@ -78,7 +78,7 @@ const HomePage = () => {
           className="featured-card"
           key={artisan._id}
           onClick={() => handleCardClick(artisan._id)}>
-          <img src={`http://localhost:4000/${artisan.profileImage}`} alt={artisan.fullName} />
+          <img src={`https://artisan-hub-e5io.onrender.com/${artisan.profileImage}`} alt={artisan.fullName} />
           <h3>{artisan.fullName}</h3>
           <p><FaUserTie /> {artisan.skill.join(', ')}</p>
           <p><FaMapMarkerAlt /> {artisan.location}</p>
@@ -98,7 +98,7 @@ const HomePage = () => {
               key={artisan._id}
               onClick={() => handleCardClick(artisan._id)}
             >
-              <img src={`http://localhost:4000/${artisan.profileImage}`} alt={artisan.fullName} />
+              <img src={`https://artisan-hub-e5io.onrender.com/${artisan.profileImage}`} alt={artisan.fullName} />
               <h4>{artisan.fullName}</h4>
               <p>{artisan.skill.join(', ')} - {artisan.location}</p>
               <p className="small">⭐ {artisan.rate || 'N/A'}</p>

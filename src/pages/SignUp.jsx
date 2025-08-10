@@ -41,7 +41,7 @@ const Signup = () => {
     setError('');
 
     try {
-      const response = await axios.post('http://localhost:4000/register', {
+      const response = await axios.post('https://artisan-hub-e5io.onrender.com/register', {
         fullName: form.fullName,
         phoneNumber: form.phoneNumber,
         email: form.email,
