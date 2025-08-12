@@ -3,9 +3,9 @@ import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-route
 import LandingPage from './pages/Landing';
 import SignUp from './pages/SignUp';
 import Login from './pages/Login';
-import Navbar from './components/Navbar'; // ✅ Import Navbar
-import ArtisanDetails from './pages/ArtisanDetails'; // if it's now a real page
-import HomePage from './pages/Home'; // Add this once Home is built
+import Navbar from './components/Navbar'; 
+import ArtisanDetails from './pages/ArtisanDetails'; 
+import HomePage from './pages/Home'; 
 import ProfilePage from './pages/Profile';
 import FAQPage from './pages/Faq';
 import AboutPage from './pages/About';
