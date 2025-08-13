@@ -99,7 +99,7 @@ const Login = () => {
           </div>
 
           <div className="forgot-remember">
-            <button type="button" className="forgot-btn" onClick={() => navigate('/forgot-password')}>
+            <button type="button" className="forgot-btn" onClick={() => navigate('/forgot')}>
               Forgot Password?
             </button>
           </div>

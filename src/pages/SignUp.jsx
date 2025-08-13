@@ -16,7 +16,6 @@ const Signup = () => {
   });
 
   const [showPassword, setShowPassword] = useState(false);
-  // const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
 
@@ -29,13 +28,9 @@ const Signup = () => {
   };
 
   const togglePassword = () => setShowPassword(!showPassword);
-  // const toggleConfirmPassword = () => setShowConfirmPassword(!showConfirmPassword);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
-    // Basic validation
-  
 
     setLoading(true);
     setError('');
@@ -54,7 +49,8 @@ const Signup = () => {
       });
 
       if (response.status >= 200 && response.status < 300) {
-        navigate('/login');
+        
+        navigate('/Otp'); 
       } else {
         setError('Registration failed. Please try again.');
       }
@@ -79,11 +75,6 @@ const Signup = () => {
             <input type="text" name="fullName" value={form.fullName} onChange={handleChange} required />
           </div>
 
-          {/* <div className="input-group">
-            <label>Date of Birth</label>
-            <input type="date" name="dob" value={form.dob} onChange={handleChange} required />
-          </div> */}
-
           <div className="input-group">
             <label>Contact Number</label>
             <input type="text" name="phoneNumber" value={form.phoneNumber} onChange={handleChange} required />
@@ -93,21 +84,6 @@ const Signup = () => {
             <label>Email</label>
             <input type="email" name="email" value={form.email} onChange={handleChange} required />
           </div>
-
-          {/* <div className="input-group">
-            <label>Address</label>
-            <input type="text" name="address" value={form.address} onChange={handleChange} required />
-          </div> */}
-
-          {/* <div className="input-group">
-            <label>Occupation</label>
-            <input type="text" name="jobSkill" value={form.jobSkill} onChange={handleChange} required />
-          </div> */}
-
-          {/* <div className="input-group">
-            <label>Identification Number</label>
-            <input type="text" name="idNumber" value={form.idNumber} onChange={handleChange} required />
-          </div> */}
 
           <div className="input-group">
             <label>Password</label>
@@ -124,22 +100,6 @@ const Signup = () => {
               </span>
             </div>
           </div>
-
-          {/* <div className="input-group">
-            <label>Confirm Password</label>
-            <div className="password-wrapper">
-              <input
-                type={showConfirmPassword ? 'text' : 'password'}
-                name="confirmPassword"
-                value={form.confirmPassword}
-                onChange={handleChange}
-                required
-              />
-              <span onClick={toggleConfirmPassword} className="toggle-password">
-                {showConfirmPassword ? <FaEyeSlash /> : <FaEye />}
-              </span>
-            </div>
-          </div> */}
 
           {error && <p style={{ color: 'red', fontSize: '0.9rem', marginBottom: '10px' }}>{error}</p>}
 

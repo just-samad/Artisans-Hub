@@ -32,6 +32,7 @@ const Navbar = () => {
         <li><NavLink to="/user-profile" onClick={() => setMenuOpen(false)}>Profile</NavLink></li>
         <li><NavLink to="/faq" onClick={() => setMenuOpen(false)}>FAQ</NavLink></li>
         <li><NavLink to="/about" onClick={() => setMenuOpen(false)}>About</NavLink></li>
+        <li><NavLink to="/contact" onClick={() => setMenuOpen(false)}>Contact Us</NavLink></li>
         <li><NavLink to="/terms" onClick={() => setMenuOpen(false)}>Terms & Services</NavLink></li>
       </ul>
 

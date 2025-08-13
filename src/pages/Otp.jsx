@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import './Otp.css';
+import { useNavigate } from 'react-router-dom'; // Import useNavigate
 import AOS from 'aos';
 import 'aos/dist/aos.css';
 import axios from 'axios';
 
 const OtpVerification = () => {
+  const navigate = useNavigate(); // Initialize the hook
   const [otp, setOtp] = useState('');
   const [resending, setResending] = useState(false);
   const [verifying, setVerifying] = useState(false);
@@ -33,7 +35,10 @@ const OtpVerification = () => {
 
       if (response.status === 200) {
         setMessage('OTP Verified! Redirecting...');
-        // TODO: Redirect or continue flow
+        // Add the redirection here
+        setTimeout(() => {
+          navigate('/login'); // Redirect to the login page
+        }, 1500); // Wait for 1.5 seconds before redirecting
       } else {
         setError('Invalid OTP, please try again');
       }
