@@ -47,6 +47,13 @@
   border: 1px solid #ccc;
   border-radius: 6px;
   font-size: 1rem;
+  transition: border 0.3s ease;
+}
+
+.input-group input:focus {
+  border-color: #0066ff;
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(0, 102, 255, 0.1);
 }
 
 .btn-primary.full {
@@ -59,11 +66,17 @@
   font-weight: 600;
   border-radius: 6px;
   cursor: pointer;
-  transition: background 0.3s ease;
+  transition: background 0.3s ease, transform 0.2s ease;
 }
 
 .btn-primary.full:hover {
   background-color: #0052cc;
+  transform: translateY(-1px);
+}
+
+.btn-primary.full:disabled {
+  background-color: #99c2ff;
+  cursor: not-allowed;
 }
 
 .resend-section {
@@ -80,20 +93,29 @@
   cursor: pointer;
   margin-left: 6px;
   text-decoration: underline;
+  transition: color 0.3s ease;
 }
 
 .resend-btn:hover {
   color: #003366;
 }
 
-.error-msg {
-  color: #ff3333;
+.error-msg, .success-msg {
   font-size: 0.9rem;
   margin-bottom: 10px;
+  padding: 10px;
+  border-radius: 6px;
+  text-align: center;
+}
+
+.error-msg {
+  background-color: #ffe6e6;
+  color: #cc0000;
+  border: 1px solid #ff9999;
 }
 
 .success-msg {
-  color: #009900;
-  font-size: 0.9rem;
-  margin-bottom: 10px;
+  background-color: #e6ffed;
+  color: #008000;
+  border: 1px solid #99e6b3;
 }
