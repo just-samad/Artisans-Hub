@@ -84,7 +84,7 @@ const OtpVerification = () => {
             <input
               type="text"
               value={otp}
-              onChange={(e) => setOtp(e.target.value.replace(/\D/g, ''))}
+              onChange={(e) => setOtp(e.target.value.replace(/[^a-zA-Z0-9]/g, ''))}
               placeholder="Enter 6-digit code"
               maxLength={6}
               required
